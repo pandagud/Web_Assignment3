@@ -3,17 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using JwtAuthenticationHelper.Extensions;
+using AuthenticationHelper.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Web_Assignment3
+namespace WebAssignment3
 {
     public class Startup
     {
@@ -27,12 +24,10 @@ namespace Web_Assignment3
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<CookiePolicyOptions>(options =>
-            {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                options.CheckConsentNeeded = context => true;
-                options.MinimumSameSitePolicy = SameSiteMode.None;
-            });
+
+            // retrieve the configured token params and establish a TokenValidationParameters object,
+            // we are going to need this later.
+
 
             var validationParams = new TokenValidationParameters
             {
@@ -55,7 +50,8 @@ namespace Web_Assignment3
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("RequiresAdmin", policy => policy.RequireClaim("HasAdminRights", "Y"));
-                options.AddPolicy("RequiresUserRights", policy => policy.RequireClaim("hasUserRights", "Y"));
+                options.AddPolicy("RequiresResearcher", policy => policy.RequireClaim("HasResearcherRights", "Y"));
+                options.AddPolicy("RequiresParticipant", policy => policy.RequireClaim("HasParticipantRights", "Y"));
 
             });
 
@@ -69,18 +65,30 @@ namespace Web_Assignment3
         {
             if (env.IsDevelopment())
             {
+                app.UseBrowserLink();
                 app.UseDeveloperExceptionPage();
             }
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                app.UseHsts();
             }
+            app.Use(async (ctx, next) =>
+            {
+                await next();
 
-            app.UseHttpsRedirection();
+                if (ctx.Response.StatusCode == 404 && !ctx.Response.HasStarted)
+                {
+                    //Re-execute the request so the user gets the error page
+                    string originalPath = ctx.Request.Path.Value;
+                    ctx.Items["originalPath"] = originalPath;
+                    ctx.Request.Path = "/error/404";
+                    await next();
+                }
+            });
+
             app.UseStaticFiles();
             app.UseAuthentication();
-            app.UseCookiePolicy();
+
 
             app.UseMvc(routes =>
             {
