@@ -25,7 +25,7 @@
     <Content Update="Views\Login\AdminLogin.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Views\Register\RegisterAdmin.cshtml">
+    <Content Update="Views\Register\Index.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
   </ItemGroup>

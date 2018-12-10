@@ -1,14 +1,14 @@
-﻿using AuthenticationHelper.Abstractions;
-using AuthenticationHelper.Types;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.IdentityModel.Tokens;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
+using AuthenticationHelper.Abstractions;
+using AuthenticationHelper.Types;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.IdentityModel.Tokens;
 
-namespace JwtAuthenticationHelper
+namespace AuthenticationHelper
 {
     /// <summary>
     /// A generic Json Web Token generator for use with token based authentication in web applications

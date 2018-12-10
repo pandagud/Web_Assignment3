@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System;
-using JwtAuthenticationHelper;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace AuthenticationHelper.Extensions

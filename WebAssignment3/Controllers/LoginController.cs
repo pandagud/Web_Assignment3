@@ -35,8 +35,6 @@ namespace WebAssignment3.Controllers
             try
             {
 
-
-
                 var userInfo = new UserInfo
                 {
                     hasAdminRights = true,
@@ -70,8 +68,6 @@ namespace WebAssignment3.Controllers
         {
             try
             {
-
-
 
                 var userInfo = new UserInfo
                 {

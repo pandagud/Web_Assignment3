@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Security.Claims;
 
-namespace JwtAuthenticationHelper
+namespace AuthenticationHelper
 {
     public sealed class ClaimsPrincipalFactory
     {

@@ -1,11 +1,11 @@
-﻿using AuthenticationHelper.Types;
+﻿using System;
+using System.IdentityModel.Tokens.Jwt;
+using AuthenticationHelper.Types;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.IdentityModel.Tokens.Jwt;
 
-namespace JwtAuthenticationHelper
+namespace AuthenticationHelper
 {
     /// <summary>
     /// An implementation of <see cref="ISecureDataFormat{TData}"/> to securely store a Json Web
