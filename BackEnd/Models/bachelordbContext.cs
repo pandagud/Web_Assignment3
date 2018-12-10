@@ -66,7 +66,85 @@ namespace BackEnd.Models
                     .HasColumnName("password")
                     .HasColumnType("varchar(45)");
             });
-            
+
+
+            modelBuilder.Entity<Category>(entity =>
+            {
+                entity.HasKey(e => e.CategoryId);
+
+                entity.ToTable("Category");
+
+                entity.HasIndex(e => e.CategoryId)
+                    .HasName("CategoryId")
+                    .IsUnique();
+
+                entity.Property(e => e.CategoryId)
+                    .HasColumnName("CategoryId")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.Name)
+                    .HasColumnName("CategoryName")
+                    .HasColumnType("varchar(50)");
+            });
+
+            modelBuilder.Entity<Category_ComponentType>(entity =>
+            {
+                //entity.HasKey(e => e.CategoryId);
+
+                entity.ToTable("Category_ComponentType");
+
+                //entity.HasIndex(e => e.CategoryId)
+                //    .HasName("CategoryId")
+                //    .IsUnique();
+
+                entity.Property(e => e.CategoryId)
+                    .HasColumnName("CategoryId")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.ComponentTypeId)
+                    .HasColumnName("ComponentTypeId")
+                    .HasColumnType("int(11)");
+
+            });
+
+
+            //Ikke færdig
+            modelBuilder.Entity<Component>(entity =>
+            {
+                entity.HasKey(e => e.ComponentId);
+
+                entity.ToTable("Component");
+
+                entity.HasIndex(e => e.ComponentId)
+                    .HasName("ComponentId")
+                    .IsUnique();
+
+                entity.Property(e => e.ComponentNumber)
+                    .HasColumnName("ComponentNumber")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.SerialNo)
+                    .HasColumnName("SerialNo")
+                    .HasColumnType("varchar(50)");
+
+                entity.Property(e => e.AdminComment)
+                    .HasColumnName("AdminComment")
+                    .HasColumnType("varchar(50)");
+
+                entity.Property(e => e.UserComment)
+                    .HasColumnName("UserComment")
+                    .HasColumnType("varchar(50)");
+
+                entity.Property(e => e.CurrentLoanInformationId)
+                    .HasColumnName("CurrentLoanInformationId")
+                    .HasColumnType("bigint(20)");
+
+            });
+
+
+
+
+
         }
     }
 }
