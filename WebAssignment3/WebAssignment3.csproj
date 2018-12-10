@@ -19,13 +19,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="Views\HomePage\Index.cshtml">
+    <Content Update="Views\HomePage\Admin.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Views\Login\AdminLogin.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Views\Register\Index.cshtml">
+    <Content Update="Views\Register\Admin.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
   </ItemGroup>

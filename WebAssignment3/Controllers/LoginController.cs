@@ -7,6 +7,7 @@ using AuthenticationHelper.Abstractions;
 using BackEnd.Handlers;
 using BackEnd.Models;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebAssignment3.Models.AdminLogin;
@@ -16,6 +17,7 @@ namespace WebAssignment3.Controllers
     public class LoginController : Controller
     {
         private readonly IJwtTokenGenerator tokenGenerator;
+        private UserInfo userInfo;
 
         public LoginController(IJwtTokenGenerator tokenGenerator)
         {
@@ -40,14 +42,29 @@ namespace WebAssignment3.Controllers
                 var status = loginHandler.LoginAdmin(model.Email, model.Password);
                 if (status.success)
                 {
-                    //Create an object with userinfo about the user.
-                    var userInfo = new UserInfo
+                    if (status.adminuser.IsAdmin)
                     {
-                        hasAdminRights = true,
-                        hasParticipantRights = true,
-                        hasResearcherRights = false,
-                        userID = "" + status.adminuser.IdAdmin
-                    };
+                        //Create an object with userinfo about the user.
+                        userInfo = new UserInfo
+                        {
+                            hasAdminRights = true,
+                            hasParticipantRights = true,
+                            hasResearcherRights = false,
+                            userID = "" + status.adminuser.IdAdmin
+                        };
+                    }
+                    else
+                    {
+                        //Create an object with userinfo about the user.
+                        userInfo = new UserInfo
+                        {
+                            hasAdminRights = false,
+                            hasParticipantRights = true,
+                            hasResearcherRights = false,
+                            userID = "" + status.adminuser.IdAdmin
+                        };
+                    }
+                
 
                     //Generates token with claims defined from the userinfo object.
                     var accessTokenResult = tokenGenerator.GenerateAccessTokenWithClaimsPrincipal(
@@ -116,6 +133,14 @@ namespace WebAssignment3.Controllers
             }
 
 
+        }
+
+        [AllowAnonymous]
+        [Route("LogoutResearcher")]
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("AdminLogin", "Login");
         }
         private static IEnumerable<Claim> AddMyClaims(UserInfo userInfo)
         {

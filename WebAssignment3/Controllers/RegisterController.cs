@@ -7,7 +7,12 @@ namespace WebAssignment3.Controllers
 {
     public class RegisterController : Controller
     {
-        public IActionResult Index()
+        public IActionResult Admin()
+        {
+            return View();
+        }
+
+        public IActionResult Participant()
         {
             return View();
         }
@@ -24,10 +29,27 @@ namespace WebAssignment3.Controllers
                 admin.Password = model.Password;
                 admin.IsAdmin = true;
                 registerhandler.RegisterAdmin(admin);
-                return RedirectToAction("Index", "HomePage");
+                return RedirectToAction("AdminLogin", "Login");
             }
 
-            return Index();
+            return Admin();
+        }
+        public IActionResult RegisterParticipant(RegisterModell model)
+        {
+            if (ModelState.IsValid)
+            {
+                RegisterHandler registerhandler = new RegisterHandler(new bachelordbContext());
+                Admin admin = new Admin();
+                admin.Email = model.Email;
+                admin.Firstname = model.Firstname;
+                admin.Lastname = model.Lastname;
+                admin.Password = model.Password;
+                admin.IsAdmin = false;
+                registerhandler.RegisterAdmin(admin);
+                return RedirectToAction("AdminLogin", "Login");
+            }
+
+            return Participant();
         }
     }
 }

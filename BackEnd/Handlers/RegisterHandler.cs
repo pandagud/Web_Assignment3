@@ -17,7 +17,7 @@ namespace BackEnd.Handlers
 
         public bool RegisterAdmin(Admin adminstrator)
         {
-            if (_context.admin.Any(admin => admin.Email == admin.Email))
+            if (_context.admin.Any(admin => admin.Email == adminstrator.Email))
             {
                 //Email allready exists
                 return false;
