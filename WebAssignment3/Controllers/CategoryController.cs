@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BackEnd.Handlers;
+using BackEnd.Models;
 using Microsoft.AspNetCore.Mvc;
-using WebAssignment3.Models.Category;
+using Category = WebAssignment3.Models.Category.Category;
 
 namespace WebAssignment3.Controllers
 {
@@ -22,7 +24,10 @@ namespace WebAssignment3.Controllers
         {
             if (ModelState.IsValid)
             {
-
+                CategoryHandler handler = new CategoryHandler(new bachelordbContext());
+                BackEnd.Models.Category dbcat  =new BackEnd.Models.Category();
+                dbcat.Name = model.Name;
+                handler.AddCategory(dbcat);
                 return RedirectToAction("Index", "HomePage");
             }
 

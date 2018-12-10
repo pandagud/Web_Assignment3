@@ -14,6 +14,7 @@ namespace BackEnd.Models
         }
 
         public virtual DbSet<Admin> admin { get; set; }
+        public virtual DbSet<Category> category { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
