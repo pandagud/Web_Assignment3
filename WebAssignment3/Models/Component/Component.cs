@@ -19,6 +19,12 @@ namespace WebAssignment3.Models.Component
     public enum ComponentTypeStatus
     {
         Available,
-        ReservedAdmin
+        ReservedAdmin,
+        ReservedLoaner,
+        Loaned,
+        Defact,
+        Trashed,
+        Lost,
+        NeverReturned
     }
 }

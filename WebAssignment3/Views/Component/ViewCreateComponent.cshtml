@@ -13,11 +13,6 @@
         <form asp-action="CreateComponent">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="ComponentTypeId" class="control-label"></label>
-                <input asp-for="ComponentTypeId" class="form-control" />
-                <span asp-validation-for="ComponentTypeId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="ComponentNumber" class="control-label"></label>
                 <input asp-for="ComponentNumber" class="form-control" />
                 <span asp-validation-for="ComponentNumber" class="text-danger"></span>
@@ -55,6 +50,6 @@
 </div>
 
 <div>
-    <li style="float: right"><a class="menuItems" href="@Url.Action("Index", "HomePage")">Back</a></li>
+    <a asp-action="Index">Back to List</a>
 </div>
 

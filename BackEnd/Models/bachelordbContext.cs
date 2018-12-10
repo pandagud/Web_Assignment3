@@ -16,6 +16,8 @@ namespace BackEnd.Models
         public virtual DbSet<Admin> admin { get; set; }
         public virtual DbSet<Category> category { get; set; }
 
+        public virtual DbSet<Component> component { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -132,6 +134,10 @@ namespace BackEnd.Models
 
                 entity.Property(e => e.SerialNo)
                     .HasColumnName("SerialNo")
+                    .HasColumnType("varchar(50)");
+
+                entity.Property(e => e.Status)
+                    .HasColumnName("ComponentStatus")
                     .HasColumnType("varchar(50)");
 
                 entity.Property(e => e.AdminComment)
