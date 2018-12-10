@@ -89,13 +89,17 @@ namespace BackEnd.Models
 
             modelBuilder.Entity<Category_ComponentType>(entity =>
             {
-                //entity.HasKey(e => e.CategoryId);
+                entity.HasKey(e => e.Category_ComponentTypeId);
 
                 entity.ToTable("Category_ComponentType");
 
-                //entity.HasIndex(e => e.CategoryId)
-                //    .HasName("CategoryId")
-                //    .IsUnique();
+                entity.HasIndex(e => e.Category_ComponentTypeId)
+                    .HasName("Category_ComponentTypeId")
+                    .IsUnique();
+
+                entity.Property(e => e.CategoryId)
+                    .HasColumnName("Category_ComponentTypeId")
+                    .HasColumnType("int(11)");
 
                 entity.Property(e => e.CategoryId)
                     .HasColumnName("CategoryId")
@@ -104,6 +108,8 @@ namespace BackEnd.Models
                 entity.Property(e => e.ComponentTypeId)
                     .HasColumnName("ComponentTypeId")
                     .HasColumnType("int(11)");
+
+
 
             });
 
