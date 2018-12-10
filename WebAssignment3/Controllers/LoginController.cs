@@ -4,6 +4,8 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using BackEnd;
 using AuthenticationHelper.Abstractions;
+using BackEnd.Handlers;
+using BackEnd.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -30,28 +32,48 @@ namespace WebAssignment3.Controllers
         }
 
         [AllowAnonymous]
-        public async Task<IActionResult> CreateAdminLogin(LoginModel model)
+        public async Task<IActionResult> LoginAsAdmin(LoginModel model)
         {
             try
             {
-
-                var userInfo = new UserInfo
+                LoginHandler loginHandler = new LoginHandler(new bachelordbContext());
+                var status = loginHandler.LoginAdmin(model.Email, model.Password);
+                if (status.success)
                 {
-                    hasAdminRights = true,
-                    hasResearcherRights = true,
-                    hasParticipantRights = false,
-                    userID = "" + 1,
-                };
+                    //Create an object with userinfo about the user.
+                    var userInfo = new UserInfo
+                    {
+                        hasAdminRights = true,
+                        hasParticipantRights = true,
+                        hasResearcherRights = false,
+                        userID = "" + status.adminuser.IdAdmin
+                    };
+
+                    //Generates token with claims defined from the userinfo object.
+                    var accessTokenResult = tokenGenerator.GenerateAccessTokenWithClaimsPrincipal(
+                        model.Email,
+                        AddMyClaims(userInfo));
+                    await HttpContext.SignInAsync(accessTokenResult.ClaimsPrincipal,
+                        accessTokenResult.AuthProperties);
+
+                    return RedirectToAction("Index", "HomePage");
+
+                }
+                else
+                {
+                    var err = status.errormessage;
+                    if (err == "Wrong password")
+                        this.ModelState.AddModelError("Password", err.ToString());
+                    else
+                    {
+                        this.ModelState.AddModelError("Email", err.ToString());
+                    }
+                }
+
+                return View("AdminLogin");
 
 
-                //Generates token with claims defined from the userinfo object.
-                var accessTokenResult = tokenGenerator.GenerateAccessTokenWithClaimsPrincipal(
-                    model.Email,
-                    AddMyClaims(userInfo));
-                await HttpContext.SignInAsync(accessTokenResult.ClaimsPrincipal,
-                    accessTokenResult.AuthProperties);
 
-                return RedirectToAction("Index", "HomePage");
             }
             catch (Exception e)
             {

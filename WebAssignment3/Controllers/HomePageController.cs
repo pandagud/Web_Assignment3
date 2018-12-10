@@ -10,11 +10,5 @@ namespace WebAssignment3.Controllers
         {
             return View();
         }
-
-        [Authorize(Policy = "RequiresResearcher")]
-        public IActionResult RTest()
-        {
-            return View();
-        }
     }
 }
