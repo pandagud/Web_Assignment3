@@ -36,5 +36,53 @@ namespace WebAssignment3.Controllers
                 return RedirectToAction("Index", "HomePage");
         
         }
+
+        public IActionResult ViewDeleteComponent()
+        {
+            return View();
+        }
+
+        public IActionResult DeleteComponent(Component model)
+        {
+            BackEnd.Models.Component component = new BackEnd.Models.Component();
+            component.ComponentId = model.ComponentId;
+            ComponentHandler handler = new ComponentHandler(new bachelordbContext());
+            handler.DeleteComponent(component);
+            return RedirectToAction("Index", "HomePage");
+        }
+
+        public IActionResult ViewUpdateComponent()
+        {
+            return View();
+        }
+
+        public IActionResult GetUpdateComponent(Component model)
+        {
+            BackEnd.Models.Component component = new BackEnd.Models.Component();
+            component.ComponentId = model.ComponentId;
+            ComponentHandler handler = new ComponentHandler(new bachelordbContext());
+            var newcomp =handler.getComponent(component);
+            if (newcomp.Status != null)
+            {
+                newcomp.AdminComment = model.AdminComment;
+                newcomp.ComponentNumber = model.ComponentNumber;
+                newcomp.SerialNo = model.SerialNo;
+                newcomp.UserComment = model.UserComment;
+                newcomp.Status = model.Status.ToString();
+                newcomp.CurrentLoanInformationId = Convert.ToInt64(User.Claims.ElementAt(3).Value);
+                handler.EditComponent(newcomp);
+
+                return RedirectToAction("Index", "HomePage");
+            }
+            else
+            {
+                this.ModelState.AddModelError("AdminComment","There is no component with that ID");
+                return View("ViewUpdateComponent");
+            }
+    
+
+        }
+
+    
     }
 }

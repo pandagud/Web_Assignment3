@@ -1,0 +1,22 @@
+﻿@model WebAssignment3.Models.Component.Component
+@{
+    ViewData["Title"] = "ViewDeleteComponent";
+}
+
+<h2>Delete a component based on its ID</h2>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="DeleteComponent">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ComponentId" class="control-label"></label>
+                <input asp-for="ComponentId" class="form-control" />
+                <span asp-validation-for="ComponentId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Delete" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+

@@ -4,8 +4,21 @@
 }
 
 <h2>Admin Page</h2>
+<div style="margin-top: 44%">
+    <div class="col-md-2">
+        <button style="float: right"><a class="menuItems" href="@Url.Action("ViewCreateComponent", "Component")">Create Component</a></button>
+        <button style="float: right"><a class="menuItems" href="@Url.Action("ViewDeleteComponent", "Component")">Delete Component</a></button>
+        <button style="float: right"><a class="menuItems" href="@Url.Action("ViewUpdateComponent", "Component")">Update Component</a></button>
 
-<button style="float: right"><a class="menuItems" href="@Url.Action("ViewCreateComponent", "Component")">Create Component</a></button>
-<button style="float: right"><a class="menuItems" href="@Url.Action("ViewCreateComponentType", "ComponenetType")">Create ComponentType</a></button>
-<button style="float: right"><a class="menuItems" href="@Url.Action("ViewCategoryType", "Category")">Create Category</a></button>
+
+    </div>
+    <div class="col-md-2">
+        <button style="float: right"><a class="menuItems" href="@Url.Action("ViewCategoryType", "Category")">Create Category</a></button>
+        <button style="float: right"><a class="menuItems" href="@Url.Action("ViewDeleteCategory", "Category")">Delete Category</a></button>
+        <button style="float: right"><a class="menuItems" href="@Url.Action("ViewUpdateCategory", "Category")">Update Category</a></button>
+    </div>
+    <div class="col-md-2">
+        <button style="float: right"><a class="menuItems" href="@Url.Action("ViewCreateComponentType", "ComponenetType")">Create ComponentType</a></button>
+    </div>
+</div>
 

@@ -20,7 +20,7 @@ namespace WebAssignment3.Controllers
             return View();
         }
 
-        public IActionResult CreateComponentType(Category model)
+        public IActionResult CreateCategoryType(Category model)
         {
             if (ModelState.IsValid)
             {
@@ -32,6 +32,46 @@ namespace WebAssignment3.Controllers
             }
 
             return ViewCategoryType();
+        }
+
+        public IActionResult ViewDeleteCategory()
+        {
+            return View();
+        }
+
+        public IActionResult DeleteCategory(Category model)
+        {
+            BackEnd.Models.Category category = new BackEnd.Models.Category();
+            category.CategoryId = model.CategoryId;
+            CategoryHandler handler = new CategoryHandler(new bachelordbContext());
+            handler.DeleteCateogry(category);
+            return RedirectToAction("Index", "HomePage");
+        }
+
+        public IActionResult ViewUpdateCategory()
+        {
+            return View();
+        }
+
+        public IActionResult UpdateCategory(Category model)
+        {
+            BackEnd.Models.Category category = new BackEnd.Models.Category();
+            category.CategoryId = model.CategoryId;
+            CategoryHandler handler = new CategoryHandler(new bachelordbContext());
+            var newcat = handler.getComponent(category);
+            if (newcat.Name != null)
+            {
+                newcat.Name = model.Name;
+              
+                handler.UpdateCategory(newcat);
+
+                return RedirectToAction("Index", "HomePage");
+            }
+            else
+            {
+                this.ModelState.AddModelError("Name", "There is no component with that ID");
+                return View("ViewUpdateCategory");
+            }
         }
     }
 }
