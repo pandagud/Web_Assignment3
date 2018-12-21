@@ -28,6 +28,8 @@ namespace BackEnd.Models
         public string UserComment { get; set; }
         public long? CurrentLoanInformationId { get; set; }
 
+        public int ComponentTypeId { get; set; }
+
 
     }
 }

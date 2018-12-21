@@ -4,21 +4,32 @@ using System.Linq;
 using System.Threading.Tasks;
 using BackEnd.Handlers;
 using BackEnd.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Component = WebAssignment3.Models.Component.Component;
 
 namespace WebAssignment3.Controllers
 {
+    [Authorize(Policy = "RequiresAdmin")]
     public class ComponentController : Controller
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
 
         public IActionResult ViewCreateComponent()
         {
-            return View();
+            ComponentTypeHandler comphanlder = new ComponentTypeHandler(new bachelordbContext());
+            var list = comphanlder.GetAlleComponentTypes();
+            var model = new Component();
+            model.ComponentTypeslist = new List<SelectListItem>();
+            foreach (var x in list)
+            {
+                model.ComponentTypeslist.Add(new SelectListItem
+                {
+                    Text = x.ComponentName,
+                    Value = x.ComponentTypeId.ToString()
+                });
+            }
+            return View(model);
         }
 
         public IActionResult CreateComponent(Component model)
@@ -32,7 +43,7 @@ namespace WebAssignment3.Controllers
                 component.Status = model.Status.ToString();
                 component.CurrentLoanInformationId = Convert.ToInt64(User.Claims.ElementAt(3).Value);
                 ComponentHandler handler = new ComponentHandler(new bachelordbContext());
-                handler.saveComponent(component);
+                handler.saveComponent(component, Int32.Parse(model.selectedCompentype));
                 return RedirectToAction("Index", "HomePage");
         
         }

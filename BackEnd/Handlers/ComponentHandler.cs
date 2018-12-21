@@ -15,12 +15,16 @@ namespace BackEnd.Handlers
             _context = context;
         }
 
-        public void saveComponent(Component model)
+        public void saveComponent(Component model, int componenttypeid)
         {
             if (model != null)
             {
                 _context.component.Add(model);
+                model.ComponentTypeId = componenttypeid;
                 _context.SaveChanges();
+
+
+
             }
                
               
@@ -36,6 +40,12 @@ namespace BackEnd.Handlers
             }
             return new Component();
             
+        }
+
+        public List<Component> getallComponent()
+        {
+            return _context.component.ToList();
+
         }
 
         public void DeleteComponent(Component model)

@@ -1,24 +1,110 @@
-﻿
+﻿@model WebAssignment3.Models.HomePage.HomePageModel
 @{
     ViewData["Title"] = "Index";
 }
 
-<h2>Admin Page</h2>
-<div style="margin-top: 44%">
-    <div class="col-md-2">
-        <button style="float: right"><a class="menuItems" href="@Url.Action("ViewCreateComponent", "Component")">Create Component</a></button>
-        <button style="float: right"><a class="menuItems" href="@Url.Action("ViewDeleteComponent", "Component")">Delete Component</a></button>
-        <button style="float: right"><a class="menuItems" href="@Url.Action("ViewUpdateComponent", "Component")">Update Component</a></button>
-
-
-    </div>
-    <div class="col-md-2">
-        <button style="float: right"><a class="menuItems" href="@Url.Action("ViewCategoryType", "Category")">Create Category</a></button>
-        <button style="float: right"><a class="menuItems" href="@Url.Action("ViewDeleteCategory", "Category")">Delete Category</a></button>
-        <button style="float: right"><a class="menuItems" href="@Url.Action("ViewUpdateCategory", "Category")">Update Category</a></button>
-    </div>
-    <div class="col-md-2">
-        <button style="float: right"><a class="menuItems" href="@Url.Action("ViewCreateComponentType", "ComponenetType")">Create ComponentType</a></button>
-    </div>
+<h2>Home Page</h2>
+<div>
+    @if (User.Claims.ElementAt(0).Value == "Y")
+    {
+        <div class="col-md-4">
+            <button class="btn-default"><a class="btn-default" href="@Url.Action("ViewCreateComponent", "Component")">Create Component</a></button>
+            <button class="btn-default"><a class="btn-default" href="@Url.Action("ViewDeleteComponent", "Component")">Delete Component</a></button>
+            <button class="btn-default"><a class="btn-default" href="@Url.Action("ViewUpdateComponent", "Component")">Update Component</a></button>
 </div>
+        <div class ="col-md-4">
+            <button class="btn-default"> <a class="btn-default" href="@Url.Action("ViewCategoryType", "Category")">Create Category</a></button>
+            <button class="btn-default"><a class="btn-default" href="@Url.Action("ViewDeleteCategory", "Category")">Delete Category</a></button>
+            <button class="btn-default"><a class="btn-default" href="@Url.Action("ViewUpdateCategory", "Category")">Update Category</a></button>
+</div>
+        <div class="col-md-4">
+            <button class="btn-default"><a class="btn-default" href="@Url.Action("ViewCreateComponentType", "ComponenetType")">Create ComponentType</a></button>
+            <button class="btn-default"> <a class="btn-default" href="@Url.Action("ViewDeleteComponentType", "ComponenetType")">Delete ComponentType</a></button>
+            <button class="btn-default"> <a class="btn-default" href="@Url.Action("ViewUpdateComponentType", "ComponenetType")">Update ComponentType</a></button>
+</div>
+    }
+
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-10 StudyContainerOuter" id="overview">
+            @foreach (var category in Model.listcategory)
+            {
+                <h3 class="tableTitle">  @Html.DisplayFor(modelItem => category.Name)</h3>
+                <div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="col-md-2">
+                                    ComponentType Name
+                                </th>
+                                <th class="col-md-2">
+                                    ComponentType Id
+                                </th>
+                                <th class="col-md-4" colspan="10" >
+                                    Components connected to ComponentType
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                       
+                           
+                            @foreach (var comptype in Model.listcomponenttypes)
+                            {
+                                <tr>
+                                @foreach (var catcomp in Model.CategoryComponent)
+                                {
+                                    if(comptype.ComponentTypeId==catcomp.ComponentTypeId && catcomp.CategoryId== category.CategoryId)
+                                    {
+                                    <th class="col-md-1">
+                                        @Html.DisplayFor(modelItem => comptype.ComponentName)
+                                        <img src=@Html.Raw(comptype.ImageUrl) style="width: 100px; height: 100px">
+                                        
+                                    </th>
+                                        <th class="col-md-1">
+                                            @Html.DisplayFor(modelItem => comptype.ComponentTypeId)
+                                        </th>
+                                        foreach (var component in Model.listcomponent)
+                                        {
+                                            
+                                            if(component.ComponentTypeId== comptype.ComponentTypeId)
+                                            {
+                                                <td class="col-md-2">
+                                                    <pre>
+Component number is @Html.DisplayFor(modelItem => component.ComponentNumber)
+
+Component Id is @Html.DisplayFor(modelItem => component.ComponentId)
+
+Component Status is @Html.DisplayFor(modelItem => component.Status)
+
+Component SerialNumber is @Html.DisplayFor(modelItem => component.SerialNo)
+
+UserComment @Html.DisplayFor(modelItem => component.UserComment)
+                                                    </pre>
+                               
+                                                </td>
+                           
+                                            }
+                  
+                                           
+                                        }
+                                    }
+                                   
+                                }
+                                </tr>
+                              
+                            }
+                               
+
+                        </tbody>
+                    </table>
+                </div>
+            }
+
+        </div>
+    </div>
+
+</div>
+
+
 

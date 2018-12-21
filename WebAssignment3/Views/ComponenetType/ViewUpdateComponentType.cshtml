@@ -1,82 +1,69 @@
-﻿@using Microsoft.AspNetCore.Mvc.Rendering
-@using Microsoft.CodeAnalysis.CSharp
-@model WebAssignment3.Models.Component.ComponentType
+﻿@model WebAssignment3.Models.Component.ComponentType
 
 @{
-    ViewData["Title"] = "ViewCreateComponentType";
+    ViewData["Title"] = "ViewUpdateComponentType";
 }
 
-<h2>ViewCreateComponentType</h2>
+<h2>ViewUpdateComponentType</h2>
 
-
+<h4>ComponentType</h4>
+<hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="CreateComponentType">
-            <h4>Choose category</h4>
-            <div>
-                @Html.DropDownListFor(
-                    x => x.selectedCat,
-                    new SelectList(Model.cateList, "Value","Text", "-Please Select-")
-                    )
-            </div>
-            
-            <div>
-                @Html.DropDownListFor(
-                    x => x.selectedCat2,
-                    new SelectList(Model.cateList, "Value","Text", "-Please Select-")
-                    )
-            </div>
-           
+        <form asp-action="UpdateComponentType">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
+                <label asp-for="ComponentTypeId" class="control-label"></label>
+                <input asp-for="ComponentTypeId" class="form-control" />
+                <span asp-validation-for="ComponentTypeId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="ComponentName" class="control-label"></label>
-                <input asp-for="ComponentName" class="form-control"/>
+                <input asp-for="ComponentName" class="form-control" />
                 <span asp-validation-for="ComponentName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ComponentInfo" class="control-label"></label>
-                <input asp-for="ComponentInfo" class="form-control"/>
+                <input asp-for="ComponentInfo" class="form-control" />
                 <span asp-validation-for="ComponentInfo" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Location" class="control-label"></label>
-                <input asp-for="Location" class="form-control"/>
+                <input asp-for="Location" class="form-control" />
                 <span asp-validation-for="Location" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Status" class="control-label"></label>
-                <input asp-for="Status" class="form-control"/>
-
+                <input asp-for="Status" class="form-control" />
                 <span asp-validation-for="Status" class="text-danger"></span>
-               
             </div>
             <div class="form-group">
                 <label asp-for="Datasheet" class="control-label"></label>
-                <input asp-for="Datasheet" class="form-control"/>
+                <input asp-for="Datasheet" class="form-control" />
                 <span asp-validation-for="Datasheet" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ImageUrl" class="control-label"></label>
-                <input asp-for="ImageUrl" class="form-control"/>
+                <input asp-for="ImageUrl" class="form-control" />
                 <span asp-validation-for="ImageUrl" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Manufacturer" class="control-label"></label>
-                <input asp-for="Manufacturer" class="form-control"/>
+                <input asp-for="Manufacturer" class="form-control" />
                 <span asp-validation-for="Manufacturer" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="WikiLink" class="control-label"></label>
-                <input asp-for="WikiLink" class="form-control"/>
+                <input asp-for="WikiLink" class="form-control" />
                 <span asp-validation-for="WikiLink" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="AdminComment" class="control-label"></label>
-                <input asp-for="AdminComment" class="form-control"/>
+                <input asp-for="AdminComment" class="form-control" />
                 <span asp-validation-for="AdminComment" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default"/>
+                <input type="submit" value="Save" class="btn btn-default" />
             </div>
         </form>
     </div>

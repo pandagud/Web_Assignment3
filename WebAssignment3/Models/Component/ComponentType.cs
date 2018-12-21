@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace WebAssignment3.Models.Component
 {
@@ -10,7 +11,7 @@ namespace WebAssignment3.Models.Component
         public ComponentType()
         {
             Components = new List<Component>();
-            Categories = new List<Category.Category>();
+            Categories = new List<BackEnd.Models.Category>();
         }
         public long ComponentTypeId { get; set; }
         public string ComponentName { get; set; }
@@ -23,8 +24,15 @@ namespace WebAssignment3.Models.Component
         public string WikiLink { get; set; }
         public string AdminComment { get; set; }
         public virtual ESImage.ESImage Image { get; set; }
-        public ICollection<Component> Components { get; protected set; }
-        public ICollection<Category.Category> Categories { get; protected set; }
+        public ICollection<Component> Components { get; set; }
+        public List<BackEnd.Models.Category> Categories { get; set; }
+
+        public List<SelectListItem> cateList { get; set; }
+
+        public string selectedCat { get; set; }
+
+        public string selectedCat2 { get; set; }
+
     }
 
 }

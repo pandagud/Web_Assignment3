@@ -43,6 +43,17 @@ namespace BackEnd.Handlers
             {
                 Category category =
                     _context.category.FirstOrDefault(cat => cat.CategoryId == model.CategoryId);
+
+                foreach (var categoryComponentType in _context.categoryComponentTypes.ToList())
+                {
+                    if (category.CategoryId == categoryComponentType.CategoryId)
+                    {
+                        _context.Remove(categoryComponentType);
+                    }
+                }
+                _context.SaveChanges();
+
+
                 _context.category.Remove(category);
                 _context.SaveChanges();
             }
@@ -58,6 +69,23 @@ namespace BackEnd.Handlers
                 _context.category.Update(oldcategory);
                 _context.SaveChanges();
             }
+        }
+
+        public List<Category> getAllCategory()
+        {
+            List<Category> listcategories = new List<Category>();
+
+            if (_context.category != null)
+            {
+                listcategories = _context.category.ToList();
+            }
+
+            return listcategories;
+        }
+
+        public List<Category_ComponentType> GetallCategoryComponentTypes()
+        {
+            return _context.categoryComponentTypes.ToList();
         }
 
 

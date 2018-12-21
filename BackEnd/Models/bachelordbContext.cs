@@ -18,6 +18,10 @@ namespace BackEnd.Models
 
         public virtual DbSet<Component> component { get; set; }
 
+        public virtual DbSet<ComponentType> componentType { get; set; }
+
+        public virtual DbSet<Category_ComponentType> categoryComponentTypes { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -144,6 +148,10 @@ namespace BackEnd.Models
                     .HasColumnName("AdminComment")
                     .HasColumnType("varchar(50)");
 
+                entity.Property(e => e.ComponentTypeId)
+                    .HasColumnName("ComponentTypeId")
+                    .HasColumnType("int(11)");
+
                 entity.Property(e => e.UserComment)
                     .HasColumnName("UserComment")
                     .HasColumnType("varchar(50)");
@@ -246,6 +254,7 @@ namespace BackEnd.Models
                 entity.Property(e => e.AdminComment)
                     .HasColumnName("AdminComment")
                     .HasColumnType("varchar(50)");
+
 
             });
 

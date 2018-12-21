@@ -38,6 +38,7 @@ namespace BackEnd.Models
         public string Manufacturer { get; set; }
         public string WikiLink { get; set; }
         public string AdminComment { get; set; }
+
         //hvorfor er den virtual????
         //public virtual ESImage Image { get; set; }
 

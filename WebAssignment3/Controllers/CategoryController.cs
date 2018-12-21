@@ -4,11 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using BackEnd.Handlers;
 using BackEnd.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Category = WebAssignment3.Models.Category.Category;
 
 namespace WebAssignment3.Controllers
 {
+    [Authorize(Policy = "RequiresAdmin")]
     public class CategoryController : Controller
     {
         public IActionResult Index()
@@ -17,6 +19,8 @@ namespace WebAssignment3.Controllers
         }
         public IActionResult ViewCategoryType()
         {
+          
+
             return View();
         }
 

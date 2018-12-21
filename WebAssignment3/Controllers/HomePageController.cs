@@ -1,6 +1,9 @@
 ﻿using System.Linq;
+using BackEnd.Handlers;
+using BackEnd.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using WebAssignment3.Models.HomePage;
 
 namespace WebAssignment3.Controllers
 {
@@ -29,13 +32,29 @@ namespace WebAssignment3.Controllers
         [Authorize(Policy = "RequiresAdmin")]
         public IActionResult Admin()
         {
-            return View();
+            ComponentHandler comphanlder = new ComponentHandler(new bachelordbContext());
+            ComponentTypeHandler comptypehanlder = new ComponentTypeHandler(new bachelordbContext());
+            CategoryHandler category = new CategoryHandler(new bachelordbContext());
+            HomePageModel model = new HomePageModel();
+            model.listcategory = category.getAllCategory();
+            model.listcomponenttypes = comptypehanlder.GetAlleComponentTypes();
+            model.listcomponent = comphanlder.getallComponent();
+            model.CategoryComponent = category.GetallCategoryComponentTypes();
+            return View(model);
         }
 
         [Authorize(Policy = "RequiresParticipant")]
         public IActionResult Participant()
         {
-            return View();
+            ComponentHandler comphanlder = new ComponentHandler(new bachelordbContext());
+            ComponentTypeHandler comptypehanlder = new ComponentTypeHandler(new bachelordbContext());
+            CategoryHandler category = new CategoryHandler(new bachelordbContext());
+            HomePageModel model = new HomePageModel();
+            model.listcategory = category.getAllCategory();
+            model.listcomponenttypes = comptypehanlder.GetAlleComponentTypes();
+            model.listcomponent = comphanlder.getallComponent();
+            model.CategoryComponent = category.GetallCategoryComponentTypes();
+            return View(model);
         }
     }
 }

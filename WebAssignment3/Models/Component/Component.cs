@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace WebAssignment3.Models.Component
 {
@@ -15,6 +16,10 @@ namespace WebAssignment3.Models.Component
         public string AdminComment { get; set; }
         public string UserComment { get; set; }
         public long? CurrentLoanInformationId { get; set; }
+
+        public List<SelectListItem> ComponentTypeslist { get; set; }
+
+        public string selectedCompentype { get; set; }
     }
     public enum ComponentTypeStatus
     {
