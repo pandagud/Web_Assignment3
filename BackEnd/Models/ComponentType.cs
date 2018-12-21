@@ -27,13 +27,12 @@ namespace BackEnd.Models
         //public ICollection<Component> Components { get; protected set; }
         //public ICollection<Category> Categories { get; protected set; }
 
-
+        
         public long ComponentTypeId { get; set; }
         public string ComponentName { get; set; }
         public string ComponentInfo { get; set; }
         public string Location { get; set; }
-        //Er en enum
-        //public ComponentTypeStatus Status { get; set; }
+        public string ComponentTypeStatus { get; set; }
         public string Datasheet { get; set; }
         public string ImageUrl { get; set; }
         public string Manufacturer { get; set; }
